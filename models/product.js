@@ -1,7 +1,5 @@
 var mongoose = require('mongoose');
 const dataSchema = new mongoose.Schema({
-     data: {
-
          name: {
              type: String,
              minlength: 3,
@@ -24,7 +22,7 @@ const dataSchema = new mongoose.Schema({
                  default: "eng"
              }
          }
-     }
+     
 })
 const schema = new mongoose.Schema({
     userID: {
@@ -61,6 +59,8 @@ const schema = new mongoose.Schema({
 }, {
     timestamps: true
 })
+
+
 
 const Product = mongoose.model('Product', schema);
 

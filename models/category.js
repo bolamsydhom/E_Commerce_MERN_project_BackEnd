@@ -1,7 +1,5 @@
 var mongoose = require('mongoose');
 const schema = new mongoose.Schema({
-  
-  
     name: {
         type: String,
         minlength: 3,
@@ -15,6 +13,16 @@ const schema = new mongoose.Schema({
 
 }, {
     timestamps: true
+})
+
+
+schema.set('toJSON', {
+    virtuals: true
+});
+schema.virtual('products', {
+    ref: 'Product',
+    localField: '_id',
+    foreignField: 'categoryId'
 })
 
 const Category = mongoose.model('Category', schema);

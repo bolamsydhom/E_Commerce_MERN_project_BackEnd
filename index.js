@@ -4,6 +4,7 @@ const port = process.env.port;
 require('./db');
 const userRouter = require('./routes/user')
 const productRouter = require('./routes/product')
+const categoryRouter = require('./routes/category')
 const app = express();
 const cors = require('cors');
 
@@ -26,6 +27,7 @@ app.use((req, res, next) => {
 
 app.use('/user', userRouter);
 app.use('/product', productRouter);
+app.use('/category', categoryRouter);
 
 app.use(cors());
 app.use((err,req,res,next)=>{

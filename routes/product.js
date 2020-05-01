@@ -31,22 +31,20 @@ router.post('/add', authnticationMiddleware, async (req, res, next) => {
         });
 
         await product.save();
-        res.status(200).json(` ${product} added`);
+        res.status(200).json(` ${product.data[0].name} added with ${product.data[0].description} and ${product}`);
     } catch (err) {
         next(err);
     }
 })
 
-router.get('/', authnticationMiddleware, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
 
     const {
         limit,
         skip
     } = req.query;
     const id = req.user.id;
-    const product = await Products.find({
-        userID: id
-    }).limit(limit ? +limit : 9).skip(skip ? +skip : 0);
+    const product = await Products.find().limit(limit ? +limit : 9).skip(skip ? +skip : 0);
     res.status(200).json(product);
 
 
