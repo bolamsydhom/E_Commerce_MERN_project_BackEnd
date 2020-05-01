@@ -5,7 +5,7 @@ require('./db');
 const userRouter = require('./routes/user')
 const productRouter = require('./routes/product')
 const app = express();
-
+const cors = require('cors');
 
 
 app.use(express.json({
@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 app.use('/user', userRouter);
 app.use('/product', productRouter);
 
-
+app.use(cors());
 app.use((err,req,res,next)=>{
     console.error(err);
     const statusCode = err.statusCode || 500;
