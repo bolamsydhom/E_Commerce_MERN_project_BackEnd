@@ -45,8 +45,7 @@ const schema = new mongoose.Schema({
     imagesUrls: {
         type: [{
             type: String
-        }],
-        default: []
+        }]
     },
 
     categoryId : {

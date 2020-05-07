@@ -15,7 +15,7 @@ router.post('/add', authnticationMiddleware, async (req, res, next) => {
         const {
             discount,
             price,
-            imagesUrl,
+            imagesUrls,
             data,
             categoryId
         } = req.body;
@@ -24,7 +24,7 @@ router.post('/add', authnticationMiddleware, async (req, res, next) => {
             userID,
             discount,
             price,
-            imagesUrl,
+            imagesUrls,
             data,
             categoryId,
             createdAt: new Date()
@@ -43,10 +43,17 @@ router.get('/', async (req, res, next) => {
         limit,
         skip
     } = req.query;
-    const id = req.user.id;
-    const product = await Products.find().limit(limit ? +limit : 9).skip(skip ? +skip : 0);
-    res.status(200).json(product);
-
+    
+    const product = limit ? await Products.find().limit(+limit).skip(+skip) : await Products.find();
+    const numberOfProducts = await Products.count();
+    // const product = await Products.find().limit(limit ? +limit : 9).skip(skip ? +skip : 0);
+    res.status(200).json({
+        product: product,
+        numberOfProducts: numberOfProducts
+    });
+// res.status(200).json(product
+//     // numberOfPages: Math.ceil(numberOfPages)
+// );
 
 })
 

@@ -24,12 +24,12 @@ app.use((req, res, next) => {
     console.log('Time:', Date.now())
     next()
 })
+app.use(cors());
 
 app.use('/user', userRouter);
 app.use('/product', productRouter);
 app.use('/category', categoryRouter);
 
-app.use(cors());
 app.use((err,req,res,next)=>{
     console.error(err);
     const statusCode = err.statusCode || 500;

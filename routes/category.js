@@ -5,7 +5,7 @@ const Categories = require('../models/category');
 
 const router = express.Router();
 
-router.get('/', async (req, res, next) => {
+router.get('/filter', async (req, res, next) => {
 
     const {
         limit,
@@ -18,6 +18,16 @@ router.get('/', async (req, res, next) => {
     }).populate('products').limit(limit ? +limit : 9).skip(skip ? +skip : 0).exec();
     
     // const test = await Categories.find();
+    res.status(200).json(category);
+
+
+})
+
+
+router.get('/', async (req, res, next) => {
+
+
+    const category = await Categories.find();
     res.status(200).json(category);
 
 

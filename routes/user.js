@@ -32,12 +32,13 @@ router.post('/register', async (req, res, next) => {
             email,
             password
         });
-        if (password === repeatedPassword) {
-            // res.status(301).json(`Password doesn't match`);
-            await user.save();
-            res.status(200).json(`welcome ${user.firstName}, you've been reqisterd successfully`);
+        if (password !== repeatedPassword) {
+            
+            throw new Error('Password didnot Match');
         }
-       throw new Error('Password didnot Match');
+        await user.save();
+        res.status(200).json(`s`);
+        // return res.redirect('http://localhost:3000/product');
     } catch (err) {
         err.statusCode = 422;
         next(err);
