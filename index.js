@@ -2,12 +2,18 @@ require('dotenv').config();
 const express = require('express');
 const port = process.env.port;
 require('./db');
+
+const fileUpload = require('express-fileupload');
+
 const userRouter = require('./routes/user')
 const productRouter = require('./routes/product')
 const categoryRouter = require('./routes/category')
 const app = express();
 const cors = require('cors');
 
+app.use(fileUpload({
+    useTempFiles: true
+}));
 
 app.use(express.json({
     extended: true
@@ -34,7 +40,7 @@ app.use((err,req,res,next)=>{
     console.error(err);
     const statusCode = err.statusCode || 500;
     if (statusCode >= 500) {
-        return res.status(statusCode).json({
+     res.status(statusCode).json({
             message: 'Sorry!! something went wrong',
             type: "INTRNAL_SERVER_ERROR",
             details:[]

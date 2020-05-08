@@ -5,20 +5,39 @@ const Categories = require('../models/category');
 
 const router = express.Router();
 
-router.get('/filter', async (req, res, next) => {
+router.get('/filter/:id', async (req, res, next) => {
 
     const {
         limit,
         skip,
-        catName
+        sortBy,
+        sdir
+        
     } = req.query;
-   
-    const category = await Categories.find({
-       name: catName
-    }).populate('products').limit(limit ? +limit : 9).skip(skip ? +skip : 0).exec();
+
+   const {
+       id
+   } = req.params;
+
+    // const products = await Categories.find({
+    //    _id: id
+    // }).populate('products').limit(+limit).skip(+skip).exec();
     
+var stype = `{${sortBy}:${sdir}}`;
+// var stype = `sort : {price:${sdir}}`;
+
+
+      const products = await Categories.find({
+          _id: id
+      }).populate({
+          path: 'products',
+          options: {
+              sort: sortBy
+          }
+      }).limit(+limit).skip(+skip).exec();
+products.to
     // const test = await Categories.find();
-    res.status(200).json(category);
+     res.status(200).json( products );
 
 
 })
