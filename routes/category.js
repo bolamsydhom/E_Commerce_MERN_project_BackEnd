@@ -35,7 +35,7 @@ var stype = `{${sortBy}:${sdir}}`;
               sort: sortBy
           }
       }).limit(+limit).skip(+skip).exec();
-products.to
+// products.to
     // const test = await Categories.find();
      res.status(200).json( products );
 
@@ -70,5 +70,15 @@ router.post('/add', async (req, res, next) => {
 
 })
 
+router.get('/:id', async (req, res, next) => {
 
+    const {
+        id
+    } = req.params;
+    const category = await Categories.findById(id);
+
+    res.status(200).json(category);
+
+
+})
 module.exports = router;

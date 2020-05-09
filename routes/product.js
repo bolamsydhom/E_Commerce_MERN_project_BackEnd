@@ -67,7 +67,7 @@ router.post('/add', authnticationMiddleware,  async (req, res, next) => {
             imagesUrls,
             data,
             categoryId,
-            createdAt: new Date()
+            // createdAt: new Date()
         });
 
         await product.save();
@@ -125,6 +125,18 @@ router.patch('/:id', authnticationMiddleware, authorizationMiddleWare, async (re
 
 })
 
+
+router.get('/:id', async (req, res, next) => {
+
+    const {
+        id
+    } = req.params;
+    const product = await Products.findById(id);
+
+    res.status(200).json(product);
+
+
+})
 
 router.delete('/:id', authnticationMiddleware, authorizationMiddleWare, async (req, res, next) => {
 
