@@ -5,7 +5,6 @@ const authnticationMiddleware = require('../middlewares/authentication');
 const router = express.Router();
 
 
-
 router.get('/', authnticationMiddleware, async (req, res, next) => {
     try {
         const users = await Users.find({}, {
